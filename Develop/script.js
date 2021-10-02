@@ -1,5 +1,12 @@
-var oneCall = 'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=1062cae7f5c71c87bd2302f6ec03c96d'
-var currentWeather = 'https://api.openweathermap.org/data/2.5/weather?q={cityname}&units=imperial&appid=1062cae7f5c71c87bd2302f6ec03c96d'
+var lat;
+var lon;
+var part = 'hourly';
+var city_name = 'Chicago';
+
+var API_key = '1062cae7f5c71c87bd2302f6ec03c96d';
+var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${API_key}`
+var currentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&units=imperial&appid=${API_key}`
+var fiveDayAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${city_name}&units=imperial&appid=${API_key}`
 
 
 //Units needed from Current Weather: city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index w/ color
@@ -17,10 +24,8 @@ var currentWeather = 'https://api.openweathermap.org/data/2.5/weather?q={citynam
 //If statement to fetch currentWeather into CurrentWeather
 //if currentWeather {
 //Fetching API to get data
-function getWeather(cityID) {
-    var key = '1062cae7f5c71c87bd2302f6ec03c96d';
-fetch (
-    'https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&units=imperial&appid=' + key)
+function getWeather(city_name) {
+fetch (currentWeather)
     .then(function (response) {
         return response.json();
       })
@@ -32,19 +37,64 @@ fetch (
               });
             }  
             window.onload = function() {
-                getWeather( 6167865 );
+                getWeather('Chicago');
               }
 
 function displayWeather (display) {
     document.getElementById('cityName').innerHTML = display.name;
     document.getElementById('date').innerHTML = display.dt;
-    document.getElementById('icon').innerHTML = display.weather;
-    document.getElementById('temp').innerHTML = display.main [0];
-    document.getElementById('humidity').innerHTML = display.main [5];
-    document.getElementById('wind').innerHTML = display.wind[0];
+    document.getElementById('icon').innerHTML = display.weather.icon;
+    document.getElementById('temp').innerHTML = display.main.temp;
+    document.getElementById('humidity').innerHTML = display.main.humidity;
+    document.getElementById('wind').innerHTML = display.wind.speed;
  //   document.getElementById('UV').innerHTML =
 
 }
           
-      
+// function getCoordinates() {
+//     fetch(fiveDayAPI). then(function(response) {
+//     if (response.ok) {   
+//      response.json().then(function (data) {
+//             console.log(data.city.coord);
+//             var latitude = data.city.coord.lat;
+//             var longitude = data.city.coord.lon;
+//             getWeatherOneDay(latitude, longitude);
+//             console.log(data);
+//               })
+//       }
+//     }
+
+
+    
+    
+
+    // fetch(fiveDayAPI).then(function(response) {
+    //     if(response.ok){
+    //         response.json().then(function(data){
+    //             console.log(data)
+    //             lat = data.city.coord.lat;
+    //             lon = data.city.coord.lon;
+    //             console.log(lat);
+    //             console.log(lon);
+    //         });
+    //     } else {
+    //          alert(`Error: ${response.statusText}`)
+    //      }
+    //  })
+
+    
+// function getWeatherOneDay() {
+//     fetch(oneCall)    
+//         .then(function (response) {
+//             response.json();
+//         })
+//         .then(function (data) {
+//                 console.log(data);
+
+//                   })
+            
+//           }
+//           console.log(data);
+    
+
 //Parse data to get City Name, date, icon of weather conditions, temp, humidity, wind speed and UV index

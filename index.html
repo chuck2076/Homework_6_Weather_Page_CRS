@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
+   
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -19,23 +16,32 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="Develop/style.css" />
-    <title>Work Day Scheduler</title>
+    <title>Weather App</title>
   </head>
   <!--Parse data to get City Name, date, icon of weather conditions, temp, humidity, wind speed and UV index-->
   <body>
-    <div id="cityName">
+    <article id = "content-wrapper">
+    <main>
+      <div id = "searchArea">
+        <div id = "displaySearch"></div>
+      </div>
+    </main>
+  
+    <section class = "currentWeather">Current Weather
+    <div id="cityName"></div>
       <div id="date"></div>
       <div id="icon"></div>
       <div id="temp"></div>
       <div id="humidity"></div>
       <div id="wind"></div>
       <div id="UV"></div>
-    </div>
- 
+    </section>
+
+    <section class = "cards"></section>
+  </article>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
     <script src="Develop/script.js"></script>
   </body>
 </html>
