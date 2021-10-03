@@ -2,6 +2,15 @@ var lat;
 var lon;
 var part = 'hourly';
 var city_name = 'Chicago';
+var date;
+var UVI;
+var daily = 'daily';
+var dt_txt;
+var icon;
+var temp;
+var humidity;
+var wind;
+
 
 var API_key = '1062cae7f5c71c87bd2302f6ec03c96d';
 var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${API_key}`
@@ -24,32 +33,41 @@ var fiveDayAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${city_name
 //If statement to fetch currentWeather into CurrentWeather
 //if currentWeather {
 //Fetching API to get data
-function getWeather(city_name) {
+function getCurrentWeather(city_name) {
 fetch (currentWeather)
     .then(function (response) {
         return response.json();
       })
           .then(function (data) {
-            displayWeather(data);
+            lat = data.coord.lat;
+            lon = data.coord.lon;
+            date = data.dt;
+            icon = data.weather
+            temp = data.main.temp
+            humidity = data.main.humidity
+            wind = data.wind.speed
+            console.log(wind);
+            displayCurrentWeather(data);
               })
               .catch(function() {
-                // catch any errors
+
               });
             }  
             window.onload = function() {
-                getWeather('Chicago');
+                getCurrentWeather('Chicago');
               }
-
-function displayWeather (display) {
-    document.getElementById('cityName').innerHTML = display.name;
-    document.getElementById('date').innerHTML = display.dt;
-    document.getElementById('icon').innerHTML = display.weather.icon;
-    document.getElementById('temp').innerHTML = display.main.temp;
-    document.getElementById('humidity').innerHTML = display.main.humidity;
-    document.getElementById('wind').innerHTML = display.wind.speed;
+//Parsing and Displaying Data from Current Weather
+function displayCurrentWeather (display) {
+    document.getElementById('cityName').innerHTML = city_name;
+    document.getElementById('date').innerHTML = date;
+    document.getElementById('icon').innerHTML = icon;
+    document.getElementById('temp').innerHTML = temp;
+    document.getElementById('humidity').innerHTML = humidity;
+    document.getElementById('wind').innerHTML = wind;
  //   document.getElementById('UV').innerHTML =
 
 }
+
           
 // function getCoordinates() {
 //     fetch(fiveDayAPI). then(function(response) {
@@ -65,17 +83,15 @@ function displayWeather (display) {
 //     }
 
 
-    
-    
-
     // fetch(fiveDayAPI).then(function(response) {
     //     if(response.ok){
     //         response.json().then(function(data){
-    //             console.log(data)
+    //             dt_txt = data.dt_text;
     //             lat = data.city.coord.lat;
     //             lon = data.city.coord.lon;
     //             console.log(lat);
     //             console.log(lon);
+    //             console.log(dt_txt)
     //         });
     //     } else {
     //          alert(`Error: ${response.statusText}`)

@@ -15,49 +15,34 @@ textarea {
 
 .jumbotron {
   text-align: center;
-  background-color: transparent;
-  color: black;
+  justify-content: center;
+  display: flexbox;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: rgb(59, 59, 221);
+  color: white;
+  font-size: large;
   border-radius: 0;
-  border-bottom: 10px solid black;
+  border-bottom: 2px solid black;
 }
 
-.description {
-  white-space: pre-wrap;
+.card {
+  margin: 0 0 20px 0;
+  border: 1px solid black;
+
 }
 
-.time-block {
-  text-align: center;
-  border-radius: 15px;
-}
-
-.row {
-  white-space: pre-wrap;
-  height: 80px;
-  border-top: 1px solid white;
-}
-
-.hour {
-  background-color: #ffffff;
-  color: #000000;
-  border-top: 1px dashed #000000;
-}
-
-.past {
-  background-color: #d3d3d3;
+.card-header {
   color: white;
+  background-color: rgb(59, 59, 221);
+  
 }
 
-.present {
-  background-color: #ff6961;
-  color: white;
+.card-body {
+  padding: 2.5%;
 }
 
-.future {
-  background-color: #77dd77;
-  color: white;
-}
-
-.saveBtn {
+.submitBtn {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -65,7 +50,7 @@ textarea {
   color: white;
 }
 
-.saveBtn i:hover {
+.submitBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
