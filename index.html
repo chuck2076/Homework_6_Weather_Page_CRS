@@ -21,9 +21,9 @@
   <!--Parse data to get City Name, date, icon of weather conditions, temp, humidity, wind speed and UV index-->
   <body>
     <header class = "jumbotron"><h1>The Weather Dashboard</h1></header>
-    <article id = "textarea">
-    <aside>
-      <main class="flex-row justify-space-between">
+    <div id = "textarea">
+    <div>
+      <div class="flex-row justify-space-between">
         <div class="col-12 col-md-4">
     
           <div class="card">
@@ -33,31 +33,30 @@
               <button type="submit" class="submitBtn">Submit</button>
             </form>
           </div>
-    </aside>
+        </div>
+      </div>
+    </div>
   
-    <main class = "currentWeather">Current Weather
-    <div class="cityName"></div>
+    <div class = "currentWeather">Current Weather
+    <div id ="cityName1"></div>
       <div id="date"></div>
-      <div class="icon"></div>
+      <div id ="icon1"></div>
       <div id="temp"></div>
       <div id="humidity"></div>
       <div id="wind"></div>
       <div id="UVI"></div>
-    </main>
+    </div>
 
-    <section class = "cards"></section>
-    <main class = "currentWeather">5 Day Forecast
-      <div class="cityName"></div>
+    <div class = "fiveDayForecast">5 Day Forecast
+      <div id="cityName2"></div>
         <div id="fiveDayDate "></div>
-        <div class="icon"></div>
+        <div id ="icon2"></div>
         <div id="fiveDayTemp"></div>
         <div id="fiveDayWind"></div>
         <div id="fiveDayHumidity"></div>
         
-      </main>
-
-
-  </article>
+    </div>
+  </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
