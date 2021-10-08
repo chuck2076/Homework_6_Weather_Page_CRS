@@ -4,14 +4,6 @@ body {
   line-height: 1;
 }
 
-textarea {
-  background: transparent;
-  border: none;
-  resize: none;
-  color: #000000;
-  border-left: 1px solid black;
-  padding: 10px;
-}
 
 .jumbotron {
   text-align: center;
@@ -27,7 +19,8 @@ textarea {
 }
 
 .card {
-  margin: 0 0 20px 0;
+  margin-left: 2%;
+  margin-right: 2%;
   border: 1px solid black;
 
 }
@@ -54,3 +47,8 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+.currentWeather {
+  border: 1px solid black;
+}
+
