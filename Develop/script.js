@@ -63,10 +63,10 @@ var img = document.createElement('img');
       document.getElementById("cityName1").textContent = data.name;
       document.getElementById("date").textContent = date;
       //document.getElementById("icon").textContent = data.weather[0].icon;
-      document.getElementById("temp").textContent = data.main.temp;
-      document.getElementById("humidity").textContent = data.main.humidity;
-      document.getElementById("wind").textContent = data.wind.speed;
-      //document.getElementById("UVI").textContent = data.UVI;
+      document.getElementById("temp").textContent = "Temp: " + data.main.temp; + "F";
+      document.getElementById("humidity").textContent = "Humidity: " + data.main.humidity;
+      document.getElementById("wind").textContent = "Wind Speed: " + data.wind.speed;
+      //document.getElementById("UVI").textContent = "UV Index: " + data.UVI;
       console.log(date);
     })
     .catch(function () {});
@@ -143,7 +143,7 @@ window.onload = function () {
         }
 
         //console.log(fiveDay);
-                document.getElementById('UVI').innerHTML = UVI;
+                document.getElementById('UVI').innerHTML ="UV Index: " + data.hourly[0].uvi;
                 displayFiveDay(data);
 
             });
