@@ -23,15 +23,7 @@ var fiveDayAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}
 
 //Search by City - convert open weather calls to lat, lon
 //city search history saved to local storage and viewed in button
-//var futureInfo = "http://openweathermap.org/img/wn/" + icon1 + ".png";
-//var img = document.createElement('img');
-//            img.src = futureInfo;
-//            document.getElementById('icon1').appendChild(img);
 
-//Creating Current Weather Variable
-//let currentWeather = document.querySelector ("currentWeather")
-//If statement to fetch currentWeather into CurrentWeather
-//if currentWeather {
 
 //Fetching help from Unit 6 & https://bithacker.dev/fetch-weather-openweathermap-api-javascript
 //Fetching API to get data
@@ -48,14 +40,12 @@ function getCurrentWeather(cityName){
       return response.json();
     })
     .then(function (data) {
-      //Turn this into a for loop?
+  //Creating variables to hold data
       console.log(data);
       lat = data.coord.lat;
       lon = data.coord.lon;
       console.log(lat)
       console.log(lon)
-      //need function to change date to real date
-      //date = data.dt;
       icon1 = data.weather[0].icon;
       console.log(icon1);
       var futureInfo = "http://openweathermap.org/img/wn/" + icon1 + ".png";
@@ -66,70 +56,19 @@ var img = document.createElement('img');
       console.log(temp);
       humidity = data.main.humidity;
       wind = data.wind.speed;
-      getUV(lat, lon);
-      //displayCurrentWeather(data);
+      getUV(lat, lon);//For Open Weather calls to API
+      //Adding data from function to HTML
       document.getElementById("cityName1").textContent = data.name;
       document.getElementById("date").textContent = moment().format("MM/DD/YYYY");
-      //document.getElementById("icon").textContent = data.weather[0].icon;
       document.getElementById("temp").textContent = "Temp: " + data.main.temp + "F";
       document.getElementById("humidity").textContent = "Humidity: " + data.main.humidity + "%";
       document.getElementById("wind").textContent = "Wind Speed: " + data.wind.speed + " MPH";
-      //document.getElementById("UVI").textContent = "UV Index: " + data.UVI;
-      console.log(date);
+      
     })
     .catch(function () {});
 }
-// window.onload = function () {
-//   getCurrentWeather(" ");
-// };
 
-
-//Parsing and Displaying Data from Current Weather
-// function displayCurrentWeather(display) {
-//   document.getElementById("cityName").textContent = display.city_name;
-//   document.getElementById("date").textContent = display.date;
-//   document.getElementById("icon").textContent = display.icon;
-//   document.getElementById("temp").textContent = display.temp;
-//   document.getElementById("humidity").textContent = display.humidity;
-//   document.getElementById("wind").textContent = display.wind;
-//   document.getElementById("UVI").textContent = display.UVI;
-//   console.log(date);
-//   //   document.getElementById('UV').innerHTML =
-// }
-
-// Need to figure out how to get weather icon
-
-// function getCoordinates() {
-//     fetch(fiveDayAPI). then(function(response) {
-//     if (response.ok) {
-//      response.json().then(function (data) {
-//             console.log(data.city.coord);
-//             var latitude = data.city.coord.lat;
-//             var longitude = data.city.coord.lon;
-//             getWeatherOneDay(latitude, longitude);
-//             console.log(data);
-//               })
-//       }
-//     }
-
-//Grab 5 Day response to get latitide and longitude
-//Help from Damian and Jack from class
-// fetch(fiveDayAPI).then(function(response) {
-//     if(response.ok){
-//         response.json().then(function(data){
-//             //dt_txt = data.dt_text;
-//             lat = data.city.coord.lat;
-//             lon = data.city.coord.lon;
-//             console.log(lat);
-//             console.log(lon);
-//             console.log(dt_txt)
-//         });
-//     } else {
-//          alert(`Error: ${response.statusText}`)
-//      }
-//  })
-
-//Parsing oneCall to get lat, lon and 5 dayinfo
+//Parsing oneCall by lat, lon for 5 dayinfo
     function getUV (lat,lon) {
       document.getElementById("0").textContent = " ";
       document.getElementById("1").textContent = " ";
@@ -141,26 +80,23 @@ var img = document.createElement('img');
      fetch(oneCall).then(function(response) {
         if(response.ok){
             response.json().then(function(data){
-              //console.log(data);
+
+// Trying write UVI to HTML breaks the code. Says it's empty even though it pulls the data.          
          UVI = data.hourly[0].uvi;
-          // records the current date to use for the current weather box            
+         console.log(UVI)
+         //document.getElementById("UVI").textContent = "UV Index: " + data.hourly[0].uvi;
+
+  // Records the current date to use for the current weather box            
         var fiveDay = data.daily.slice(0,5);
-        var date = new Date()
         for (let i = 0; i < fiveDay.length; i++) {
             var element = fiveDay[i];
             console.log(element)
-            // var fiveDayTemp = element.temp.day;
-            // //var fiveDayDate = element.dt;
-            // var fiveDayIcon = element.weather[0].icon
-            // var fiveDayWind = element.wind_speed;
-            // var fiveDayHumidity = element.humidity;
             console.log(fiveDay);
             let dateEl = document.createElement("li");
-            //var date = moment().format("MM/DD/YYYY");
-            // formats the date into a X/XX/XXXX format rather than what the API gives
-            dateEl.textContent = moment(today).add(i, 'days').format("MM/DD/YYYY"); // contribution Sue Lee
+            // Gets the 5 Day date through Moment
+            dateEl.textContent = moment(today).add(i, 'days').format("MM/DD/YYYY");
             dateEl.setAttribute ("class", "bolder");
-            // dynamically generate html elements to put in the cards
+      // Dynamically generate html elements to put in the li cards -help from Ethan, Jack and Damian in class
             let tempEl = document.createElement("li");
             tempEl.textContent = "Temp: " + element.temp.day + "F"; 
             let windEl = document.createElement("li");
@@ -174,6 +110,7 @@ var img = document.createElement('img');
             console.log(iconCode)
             let iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
             iconEl.setAttribute("src", iconUrl);
+          //Adding the data to the li cards
             document.getElementById(i).appendChild(dateEl);
             document.getElementById(i).appendChild(iconEl);
             document.getElementById(i).appendChild(tempEl);
@@ -191,14 +128,10 @@ var img = document.createElement('img');
          }
      })
     };
-  //}
-  // window.onload = function () {
-  //   getUV();
-  // };
 
+//Search button handler for search text input
   function searchHandler(event) {
     event.preventDefault();
-    console.log("fired");
     let cityName = $("#searchInput").val();
     console.log(cityName);
   
@@ -209,73 +142,11 @@ var submit = document.querySelector(".submitBtn")
 
 submit.addEventListener("click", searchHandler)
 
-
-
-
-
-
-
-
-
-
-//Setting 5 Day to display
-    //   function displayFiveDay (display) {
-    //     document.getElementById('cityName2').innerHTML = display.city_name;
-    //   //  document.getElementById('fiveDayDate').innerHTML = display.fiveDayDate;
-    //     document.getElementById('icon').innerHTML = display.fiveDayIcon;
-    //     document.getElementById('fiveDayTemp').innerHTML = display.fiveDayTemp;
-    //     document.getElementById('fiveDayHumidity').innerHTML = display.fiveDayHumidity;
-    //     document.getElementById('fiveDayWind').innerHTML = display.fiveDayWind;
-    //  //   document.getElementById('UVI').innerHTML = UVI;
-    //  //   document.getElementById('UV').innerHTML =
-
-    // }
-
+//Things Not Finished:
 //Use local storage to get past city searches
 //Event Make button for past cities
 //On click pull that city's info from local storage
 
-// function getWeatherOneDay() {
-//     fetch(oneCall)
-//         .then(function (response) {
-//             response.json();
-//         })
-//         .then(function (data) {
-//                 console.log(data);
 
-//                   })
 
-//           }
-//           console.log(data);
 
-//Parse data to get City Name, date, icon of weather conditions, temp, humidity, wind speed and UV i
-
-//Fetch 5 day API to get Date, Icon, Temp, Wind Humidity
-// fetch(fiveDayAPI).then(function(response) {
-//     if(response.ok){
-//         response.json().then(function(data){
-//             dt_txt = data.dt_text;
-//             lat = data.city.coord.lat;
-//             lon = data.city.coord.lon;
-//             console.log(lat);
-//             console.log(lon);
-//             console.log(dt_txt)
-//         });
-//     } else {
-//          alert(`Error: ${response.statusText}`)
-//      }
-//  })
-
-//then
-// for (let i = 0; i < array.length(5); i++) {
-//     const element = array[i];
-//     date, icon, temp, wind, humidity
-
-// }
-
-//Write to i using HTML in jQuery look at Unit 3
-// var = document.createElement('div')
-
-//Use local storage to get past city searches
-//Event Make button for past cities
-//On click pull that city's info from local storage
