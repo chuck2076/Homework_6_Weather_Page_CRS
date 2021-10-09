@@ -1,8 +1,8 @@
 var lat;
 var lon;
 var part = "hourly";
-var city_name = "Chicago";
-var date = moment().format("MM/DD/YYYY");
+var cityName = "Chicago";
+var today = moment();
 var UVI;
 var daily = "daily";
 var dt_txt;
@@ -11,10 +11,11 @@ var temp;
 var humidity;
 var wind;
 
+//function getAPI(cityName){
 var API_key = "1062cae7f5c71c87bd2302f6ec03c96d";
 //var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${API_key}`
-var currentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city_name}&units=imperial&appid=${API_key}`;
-var fiveDayAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${city_name}&units=imperial&appid=${API_key}`;
+//var currentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${API_key}`;
+var fiveDayAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=${API_key}`;
 //var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${API_key}`
 
 //Units needed from Current Weather: city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV i w/ color
@@ -34,7 +35,14 @@ var fiveDayAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${city_name
 
 //Fetching help from Unit 6 & https://bithacker.dev/fetch-weather-openweathermap-api-javascript
 //Fetching API to get data
-function getCurrentWeather(city_name) {
+function getCurrentWeather(cityName){
+  var currentWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${API_key}`;
+  document.getElementById("cityName1").textContent = " ";
+      document.getElementById("date").textContent = " ";
+      //document.getElementById("icon").textContent = data.weather[0].icon;
+      document.getElementById("temp").textContent = " ";
+      document.getElementById("humidity").textContent = " ";
+      document.getElementById("wind").textContent = " ";
   fetch(currentWeather)
     .then(function (response) {
       return response.json();
@@ -61,7 +69,7 @@ var img = document.createElement('img');
       getUV(lat, lon);
       //displayCurrentWeather(data);
       document.getElementById("cityName1").textContent = data.name;
-      document.getElementById("date").textContent = date;
+      document.getElementById("date").textContent = moment().format("MM/DD/YYYY");
       //document.getElementById("icon").textContent = data.weather[0].icon;
       document.getElementById("temp").textContent = "Temp: " + data.main.temp + "F";
       document.getElementById("humidity").textContent = "Humidity: " + data.main.humidity + "%";
@@ -71,9 +79,9 @@ var img = document.createElement('img');
     })
     .catch(function () {});
 }
-window.onload = function () {
-  getCurrentWeather("Chicago");
-};
+// window.onload = function () {
+//   getCurrentWeather(" ");
+// };
 
 
 //Parsing and Displaying Data from Current Weather
@@ -123,26 +131,54 @@ window.onload = function () {
 
 //Parsing oneCall to get lat, lon and 5 dayinfo
     function getUV (lat,lon) {
+      document.getElementById("0").textContent = " ";
+      document.getElementById("1").textContent = " ";
+      document.getElementById("2").textContent = " ";
+      document.getElementById("3").textContent = " ";
+      document.getElementById("4").textContent = " ";
+      
     var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${API_key}`
      fetch(oneCall).then(function(response) {
         if(response.ok){
             response.json().then(function(data){
               //console.log(data);
          UVI = data.hourly[0].uvi;
-          // records the current date to use for the current weather box
-          let currentDate = moment().format("M/DD/YYYY");
-      $("#city").text(response.city.name + " " + currentDate);              
+          // records the current date to use for the current weather box            
         var fiveDay = data.daily.slice(0,5);
+        var date = new Date()
         for (let i = 0; i < fiveDay.length; i++) {
-            const element = fiveDay[i];
-            //console.log(element)
-            var fiveDayTemp = element.temp.day;
-            //var fiveDayDate = element.dt;
-            var fiveDayIcon = element.weather[0].icon
-            var fiveDayWind = element.wind_speed;
-            var fiveDayHumidity = element.humidity;
+            var element = fiveDay[i];
+            console.log(element)
+            // var fiveDayTemp = element.temp.day;
+            // //var fiveDayDate = element.dt;
+            // var fiveDayIcon = element.weather[0].icon
+            // var fiveDayWind = element.wind_speed;
+            // var fiveDayHumidity = element.humidity;
             console.log(fiveDay);
-
+            let dateEl = document.createElement("li");
+            //var date = moment().format("MM/DD/YYYY");
+            // formats the date into a X/XX/XXXX format rather than what the API gives
+            dateEl.textContent = moment(today).add(i, 'days').format("MM/DD/YYYY"); // contribution Sue Lee
+            dateEl.setAttribute ("class", "bolder");
+            // dynamically generate html elements to put in the cards
+            let tempEl = document.createElement("li");
+            tempEl.textContent = "Temp: " + element.temp.day + "F"; 
+            let windEl = document.createElement("li");
+            windEl.textContent ="Wind: " + element.wind_speed + " MPH";
+            let humidityEl = document.createElement("li");
+            humidityEl.textContent = "Humidity: " + element.humidity + "%";
+            let iconEl = document.createElement("img");
+            iconEl.setAttribute ("class", "futureIcon");
+            // gets the weather icon code to search up the image
+            let iconCode = element.weather[0].icon;
+            console.log(iconCode)
+            let iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
+            iconEl.setAttribute("src", iconUrl);
+            document.getElementById(i).appendChild(dateEl);
+            document.getElementById(i).appendChild(iconEl);
+            document.getElementById(i).appendChild(tempEl);
+            document.getElementById(i).appendChild(windEl);
+            document.getElementById(i).appendChild(humidityEl);
         
         }
  //     document.getElementById('UVI').innerHTML ="UV Index: " + data.hourly[0].uvi;
@@ -155,9 +191,32 @@ window.onload = function () {
          }
      })
     };
-    // window.onload = function () {
-    //   getUV();
-    // };
+  //}
+  // window.onload = function () {
+  //   getUV();
+  // };
+
+  function searchHandler(event) {
+    event.preventDefault();
+    console.log("fired");
+    let cityName = $("#searchInput").val();
+    console.log(cityName);
+  
+    getCurrentWeather(cityName);
+
+}
+var submit = document.querySelector(".submitBtn")
+
+submit.addEventListener("click", searchHandler)
+
+
+
+
+
+
+
+
+
 
 //Setting 5 Day to display
     //   function displayFiveDay (display) {
