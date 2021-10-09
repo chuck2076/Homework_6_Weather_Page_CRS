@@ -63,9 +63,9 @@ var img = document.createElement('img');
       document.getElementById("cityName1").textContent = data.name;
       document.getElementById("date").textContent = date;
       //document.getElementById("icon").textContent = data.weather[0].icon;
-      document.getElementById("temp").textContent = "Temp: " + data.main.temp; + "F";
-      document.getElementById("humidity").textContent = "Humidity: " + data.main.humidity;
-      document.getElementById("wind").textContent = "Wind Speed: " + data.wind.speed;
+      document.getElementById("temp").textContent = "Temp: " + data.main.temp + "F";
+      document.getElementById("humidity").textContent = "Humidity: " + data.main.humidity + "%";
+      document.getElementById("wind").textContent = "Wind Speed: " + data.wind.speed + " MPH";
       //document.getElementById("UVI").textContent = "UV Index: " + data.UVI;
       console.log(date);
     })
@@ -129,7 +129,9 @@ window.onload = function () {
             response.json().then(function(data){
               //console.log(data);
          UVI = data.hourly[0].uvi;
-                
+          // records the current date to use for the current weather box
+          let currentDate = moment().format("M/DD/YYYY");
+      $("#city").text(response.city.name + " " + currentDate);              
         var fiveDay = data.daily.slice(0,5);
         for (let i = 0; i < fiveDay.length; i++) {
             const element = fiveDay[i];
@@ -140,11 +142,12 @@ window.onload = function () {
             var fiveDayWind = element.wind_speed;
             var fiveDayHumidity = element.humidity;
             console.log(fiveDay);
-        }
 
-        //console.log(fiveDay);
-                document.getElementById('UVI').innerHTML ="UV Index: " + data.hourly[0].uvi;
-                displayFiveDay(data);
+        
+        }
+ //     document.getElementById('UVI').innerHTML ="UV Index: " + data.hourly[0].uvi;
+ //               displayFiveDay(data);
+
 
             });
         } else {
@@ -157,17 +160,17 @@ window.onload = function () {
     // };
 
 //Setting 5 Day to display
-      function displayFiveDay (display) {
-        document.getElementById('cityName2').innerHTML = display.city_name;
-      //  document.getElementById('fiveDayDate').innerHTML = display.fiveDayDate;
-        document.getElementById('icon').innerHTML = display.fiveDayIcon;
-        document.getElementById('fiveDayTemp').innerHTML = display.fiveDayTemp;
-        document.getElementById('fiveDayHumidity').innerHTML = display.fiveDayHumidity;
-        document.getElementById('fiveDayWind').innerHTML = display.fiveDayWind;
-     //   document.getElementById('UVI').innerHTML = UVI;
-     //   document.getElementById('UV').innerHTML =
+    //   function displayFiveDay (display) {
+    //     document.getElementById('cityName2').innerHTML = display.city_name;
+    //   //  document.getElementById('fiveDayDate').innerHTML = display.fiveDayDate;
+    //     document.getElementById('icon').innerHTML = display.fiveDayIcon;
+    //     document.getElementById('fiveDayTemp').innerHTML = display.fiveDayTemp;
+    //     document.getElementById('fiveDayHumidity').innerHTML = display.fiveDayHumidity;
+    //     document.getElementById('fiveDayWind').innerHTML = display.fiveDayWind;
+    //  //   document.getElementById('UVI').innerHTML = UVI;
+    //  //   document.getElementById('UV').innerHTML =
 
-    }
+    // }
 
 //Use local storage to get past city searches
 //Event Make button for past cities
