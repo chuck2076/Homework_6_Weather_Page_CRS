@@ -17,6 +17,7 @@ SO THAT I can plan a trip accordingly
 ## Acceptance Criteria
 
 ```
+Things I was able to accomplish in time:
 1. I have created a weather dashboard with search input forms.
 
 2. When the user searches for a city, they are presented with current a current forecast as well as a 5 Day Forecast for that city.
@@ -25,6 +26,11 @@ SO THAT I can plan a trip accordingly
 
 4. The 5 Day Forecast displays the date, an icon representation of weather conditions, temperature, wind speed and humidity.
 
+Things I was not able to accomplish in time:
+
+1. Display the UV index.  For some reason, whenever I tried to display the index it came up as null and broke the code, even though console log showed it with a value. I had to pull a Black Widow and sacrifice it for the sake of the team.
+
+2. Being a project week, I just plain ran out of time to code out local storage for the past search buttons. Maybe I'll get to it before the end of the Boot Camp.
 
 ```
 
